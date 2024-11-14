@@ -1,0 +1,17 @@
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let user of usuarios">
+            <tr>
+                <td>{{ user.nome }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="window.history.back();">Voltar</button>
+</div>
