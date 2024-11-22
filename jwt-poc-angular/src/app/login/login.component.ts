@@ -16,8 +16,14 @@ export class LoginComponent {
   email!: string;
   senha!: string;
 
-  constructor(private router: Router, 
-    private authService: AuthServiceService) {}
+  constructor(private router: Router,
+    private authService: AuthServiceService) { }
+
+  ngOnInit(): void {
+    if(this.authService.isAuthenticated()) {
+      this.router.navigate(['/home'])
+    }
+  }
 
   onLogin(): void {
     this.router.navigate(['/home'])
@@ -30,6 +36,7 @@ export class LoginComponent {
       (res) => { // Sucesso
         if (res) {
           this.authService.saveToken(res.token);
+          this.authService.saveRefreshToken(res.refreshToken)
           this.onLogin();
         }
       },
@@ -37,7 +44,7 @@ export class LoginComponent {
         console.error('Erro no login: Login não permitido!', error);
       }
     );
-  }  
+  }
 
   // Método para criptografar a senha usando SHA-256
   criptografarSenha(senha: string): string {
